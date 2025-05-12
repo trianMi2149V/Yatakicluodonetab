@@ -25,7 +25,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: #1e1e1e;
-      padding: 25px;
+      padding: 50px 25px 25px 25px; /* chừa khoảng trên cho ảnh */
       border-radius: 12px;
       box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
       z-index: 1001;
@@ -60,7 +60,6 @@
       color: #000;
     }
 
-    /* Lớp nền mờ */
     #overlay {
       position: fixed;
       top: 0;
@@ -76,6 +75,15 @@
     #support {
       display: none;
     }
+
+    .popup-icon {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -85,6 +93,7 @@
 
   <!-- Pop-up 1: Yataki -->
   <div id="popup1" class="popup">
+    <img src="https://imgur.com/a/gAW5JxJ" class="popup-icon" alt="icon" />
     <h2>Youtube Yataki</h2>
     <button class="btn-skip" onclick="showPopup2()">Bỏ qua</button>
     <button class="btn-guide" onclick="window.open('https://youtu.be/oGe7qu4WX1Q?si=Os-Zpfjc3lWAd52_', '_blank')">Xem hướng dẫn</button>
@@ -92,13 +101,14 @@
 
   <!-- Pop-up 2: Zalo hỗ trợ -->
   <div id="popup2" class="popup">
-    <h2>Zalo báo lỗi</h2>
+    <img src="https://imgur.com/a/gAW5JxJ" class="popup-icon" alt="icon" />
+    <h2>vào nhóm</h2>
     <button class="btn-help" onclick="window.open('https://zalo.me/g/uvqkny008', '_blank')">Chưa hiểu</button>
     <button class="btn-skip" onclick="closePopup2()">Bỏ qua</button>
   </div>
 
   <!-- Trang chính -->
-  <iframe src="https://www.easyfun.gg/" id="mainFrame"></iframe>
+  <iframe src="https://www.easyfun.gg/tags/rpg.html" id="mainFrame"></iframe>
 
   <script>
     // Hiển thị pop-up đầu tiên khi tải
@@ -121,6 +131,23 @@
       document.getElementById('mainFrame').style.display = 'block';
     }
   </script>
+  // Chặn chuột phải
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+  // Chặn phím F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, v.v.
+  document.addEventListener('keydown', function (e) {
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
+      (e.ctrlKey && (e.key === 'U' || e.key === 'S'))
+    ) {
+      e.preventDefault();
+      return false;
+    }
+  });
+</script>
 
 </body>
 </html>
