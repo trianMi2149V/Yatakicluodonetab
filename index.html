@@ -25,17 +25,17 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: #1e1e1e;
-      padding: 50px 25px 25px 25px; /* chừa khoảng trên cho ảnh */
+      padding: 25px;
       border-radius: 12px;
       box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
       z-index: 1001;
       width: 320px;
-      text-align: center;
+      text-align: left;
       border: 1px solid #00ffff;
     }
 
     .popup h2 {
-      margin-bottom: 15px;
+      margin: 0 0 15px 0;
       font-size: 20px;
       color: #00ffff;
     }
@@ -77,12 +77,11 @@
     }
 
     .popup-icon {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      float: left;
+      margin-right: 10px;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -93,7 +92,7 @@
 
   <!-- Pop-up 1: Yataki -->
   <div id="popup1" class="popup">
-    <img src="https://imgur.com/a/gAW5JxJ" class="popup-icon" alt="icon" />
+    <img src="https://i.imgur.com/qgk0Wib.png" class="popup-icon" alt="icon"/>
     <h2>Youtube Yataki</h2>
     <button class="btn-skip" onclick="showPopup2()">Bỏ qua</button>
     <button class="btn-guide" onclick="window.open('https://youtu.be/oGe7qu4WX1Q?si=Os-Zpfjc3lWAd52_', '_blank')">Xem hướng dẫn</button>
@@ -101,8 +100,7 @@
 
   <!-- Pop-up 2: Zalo hỗ trợ -->
   <div id="popup2" class="popup">
-    <img src="https://imgur.com/a/gAW5JxJ" class="popup-icon" alt="icon" />
-    <h2>vào nhóm</h2>
+    <h2>Vào nhóm</h2>
     <button class="btn-help" onclick="window.open('https://zalo.me/g/uvqkny008', '_blank')">Chưa hiểu</button>
     <button class="btn-skip" onclick="closePopup2()">Bỏ qua</button>
   </div>
@@ -111,43 +109,23 @@
   <iframe src="https://www.easyfun.gg/tags/rpg.html" id="mainFrame"></iframe>
 
   <script>
-    // Hiển thị pop-up đầu tiên khi tải
     window.onload = function () {
       document.getElementById('popup1').style.display = 'block';
       document.getElementById('overlay').style.display = 'block';
       document.getElementById('mainFrame').style.display = 'none';
     };
 
-    // Mở pop-up Zalo hỗ trợ
     function showPopup2() {
       document.getElementById('popup1').style.display = 'none';
       document.getElementById('popup2').style.display = 'block';
     }
 
-    // Đóng pop-up 2 và hiển thị iframe
     function closePopup2() {
       document.getElementById('popup2').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
       document.getElementById('mainFrame').style.display = 'block';
     }
   </script>
-  // Chặn chuột phải
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-
-  // Chặn phím F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, v.v.
-  document.addEventListener('keydown', function (e) {
-    if (
-      e.key === 'F12' ||
-      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
-      (e.ctrlKey && (e.key === 'U' || e.key === 'S'))
-    ) {
-      e.preventDefault();
-      return false;
-    }
-  });
-</script>
 
 </body>
 </html>
