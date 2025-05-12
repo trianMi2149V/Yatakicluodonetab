@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yataki RPG</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      color: white;
+    }
+
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1e1e1e;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+      z-index: 1000;
+      width: 320px;
+      text-align: center;
+      border: 1px solid #00ffff;
+    }
+
+    .popup h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #00ffff;
+    }
+
+    .popup button {
+      margin: 10px 5px 0;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-skip {
+      background-color: #444;
+      color: #fff;
+    }
+
+    .btn-guide {
+      background-color: #00ffff;
+      color: #000;
+    }
+
+    .btn-help {
+      background-color: #00ffff;
+      color: #000;
+    }
+
+    #support {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pop-up 1: Yataki -->
+  <div id="popup1" class="popup">
+    <h2>Yataki Roblox</h2>
+    <button class="btn-skip" onclick="showPopup2()">Bỏ qua</button>
+    <button class="btn-guide" onclick="window.open('https://youtu.be/oGe7qu4WX1Q?si=Os-Zpfjc3lWAd52_', '_blank')">Xem hướng dẫn</button>
+  </div>
+
+  <!-- Pop-up 2: Zalo hỗ trợ -->
+  <div id="popup2" class="popup">
+    <h2>Gặp lỗi hoặc chưa hiểu?</h2>
+    <button class="btn-help" onclick="window.open('https://zalo.me/g/uvqkny008', '_blank')">Chưa hiểu</button>
+    <button class="btn-skip" onclick="closePopup2()">Bỏ qua</button>
+  </div>
+
+  <!-- Trang chính -->
+  <iframe src="https://www.easyfun.gg/tags/rpg.html" id="mainFrame"></iframe>
+
+  <script>
+    // Hiển thị pop-up đầu tiên khi tải
+    window.onload = function () {
+      document.getElementById('popup1').style.display = 'block';
+      document.getElementById('mainFrame').style.display = 'none'; // Ẩn iframe ban đầu
+    };
+
+    // Mở pop-up Zalo hỗ trợ
+    function showPopup2() {
+      document.getElementById('popup1').style.display = 'none';
+      document.getElementById('popup2').style.display = 'block';
+    }
+
+    // Đóng pop-up 2 và hiển thị iframe
+    function closePopup2() {
+      document.getElementById('popup2').style.display = 'none';
+      document.getElementById('mainFrame').style.display = 'block';
+    }
+  </script>
+
+</body>
+  </html>
