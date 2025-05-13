@@ -77,13 +77,14 @@
       display: none;
     }
 
-    /* Viền xoay cầu vồng + hiệu ứng */
     .popup-icon-wrapper {
       position: absolute;
       top: 9px;
       left: 10px;
       width: 50px;
       height: 50px;
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     .popup-icon {
@@ -94,55 +95,53 @@
       z-index: 2;
     }
 
-  /* Viền vuông, bo tròn góc */
-.popup-icon-wrapper {
-  position: absolute;
-  top: 9px;
-  left: 10px;
-  width: 50px;
-  height: 50px;
-  border-radius: 8px; /* Bo tròn góc */
-  overflow: hidden; /* Ẩn phần thừa ra ngoài viền */
-}
+    /* Viền xoay chỉ popup video hướng dẫn */
+    .popup-icon-wrapper.guide::after {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      border: 8px solid #ff69b4;
+      animation: rotate-border 2s linear infinite;
+      z-index: 1;
+    }
 
-.popup-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px; /* Bo tròn góc ảnh */
-  position: relative;
-  z-index: 2;
-}
-
-/* Hiệu ứng xoay viền */
-.popup-icon-wrapper::after {
-  content: "";
-  position: absolute;
-  top: -3px; /* Điều chỉnh vị trí để viền rộng hơn */
-  left: -3px; /* Điều chỉnh vị trí để viền rộng hơn */
-  width: 70px; /* Độ rộng của viền */
-  height: 70px; /* Độ cao của viền */
-  border-radius: 8px; /* Bo tròn viền */
-  border: 8px solid #ff69b4; /* Màu hồng và độ rộng viền */
-  animation: rotate-border 2s linear infinite;
-  z-index: 1;
-}
-
-/* Hiệu ứng xoay viền quanh */
-@keyframes rotate-border {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+    @keyframes rotate-border {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Nền mờ -->
   <div id="overlay"></div>
 
-  <!-- Pop-up 1: Yataki -->
-  <div id="popup1" class="popup">
+  <!-- Pop-up nhập key -->
+  <div id="popupKey" class="popup">
     <div class="popup-icon-wrapper">
-      <img src="https://imgur.com/HMD1NDS.png" class="popup-icon" alt="icon" />
+      <img src="https://imgur.com/HMD1NDS.png" class="popup-icon" alt="key icon" />
+    </div>
+    <h2>Nhập KEY để tiếp tục</h2>
+    <p style="margin-top: -10px; color: #ccc;">1 key = vô hạn giờ chơi</p>
+
+    <input id="keyInput" type="text" placeholder="Nhập Key EASYNFUN MOD" style="padding:10px;width:80%;border-radius:6px;margin-top:10px"/>
+    
+    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+      <button class="btn-guide" onclick="copyGetKey()">Get Key</button>
+      <button class="btn-guide" onclick="submitKey()">Xác nhận</button>
+    </div>
+
+    <p id="getKeyNote" style="display:none; font-size: 13px; color: #ff0; margin-top:8px;">Dán vào Chrome để get key, tránh gặp lỗi</p>
+    <p id="keyStatus" style="margin-top:10px; font-weight: bold;"></p>
+  </div>
+
+  <!-- Pop-up 1: Video hướng dẫn -->
+  <div id="popup1" class="popup">
+    <div class="popup-icon-wrapper guide">
+      <img src="https://imgur.com/U5UiVtt.png" class="popup-icon" alt="icon" />
     </div>
     <h2>Video hướng dẫn nếu chưa hiểu👾</h2>
     <button class="btn-skip" onclick="showPopup2()">Bỏ qua</button>
@@ -163,26 +162,56 @@
   <iframe src="https://www.easyfun.gg" id="mainFrame"></iframe>
 
   <script>
-    // Hiển thị pop-up đầu tiên khi tải
     window.onload = function () {
-      document.getElementById('popup1').style.display = 'block';
-      document.getElementById('overlay').style.display = 'block';
-      document.getElementById('mainFrame').style.display = 'none';
+      const savedKey = localStorage.getItem("KEY_YATAKIROBLOX");
+      if (!savedKey || savedKey !== "KEY_YATAKIROBLOX") {
+        document.getElementById("popupKey").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+      } else {
+        document.getElementById("popup1").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("mainFrame").style.display = "none";
+      }
     };
 
-    // Mở pop-up Zalo hỗ trợ
-    function showPopup2() {
-      document.getElementById('popup1').style.display = 'none';
-      document.getElementById('popup2').style.display = 'block';
+    function copyGetKey() {
+      const link = "https://link4m.com/m1c24sH5";
+      navigator.clipboard.writeText(link).then(() => {
+        document.getElementById("getKeyNote").style.display = "block";
+      }).catch(() => {
+        alert("Không thể sao chép. Vui lòng truy cập:\n" + link);
+      });
     }
 
-    // Đóng pop-up 2 và hiển thị iframe
+    function submitKey() {
+      const input = document.getElementById("keyInput").value.trim();
+      const status = document.getElementById("keyStatus");
+
+      if (input === "KEY_YATAKIROBLOX") {
+        localStorage.setItem("KEY_YATAKIROBLOX", input);
+        status.innerText = "✅ Key đúng";
+        status.style.color = "lime";
+        setTimeout(() => {
+          document.getElementById("popupKey").style.display = "none";
+          document.getElementById("popup1").style.display = "block";
+          status.innerText = "";
+        }, 1000);
+      } else {
+        status.innerText = "❌ Key sai";
+        status.style.color = "red";
+      }
+    }
+
+    function showPopup2() {
+      document.getElementById("popup1").style.display = "none";
+      document.getElementById("popup2").style.display = "block";
+    }
+
     function closePopup2() {
-      document.getElementById('popup2').style.display = 'none';
-      document.getElementById('overlay').style.display = 'none';
-      document.getElementById('mainFrame').style.display = 'block';
+      document.getElementById("popup2").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("mainFrame").style.display = "block";
     }
   </script>
-
 </body>
 </html>
