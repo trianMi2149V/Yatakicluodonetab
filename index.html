@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="author" content="Yataki Roblox"> <!-- © Yataki Roblox - Bản quyền thuộc về kênh YouTube Yataki Roblox -->
+  <meta name="author" content="Yataki Roblox">
   <title>©Yataki Roblox</title>
   <style>
     body {
@@ -26,7 +26,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: #1e1e1e;
-      padding: 50px 25px 25px 25px; /* chừa khoảng trên cho ảnh */
+      padding: 50px 25px 25px 25px;
       border-radius: 12px;
       box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
       z-index: 1001;
@@ -77,13 +77,61 @@
       display: none;
     }
 
-    .popup-icon {
+    /* Viền xoay cầu vồng + hiệu ứng */
+    .popup-icon-wrapper {
       position: absolute;
       top: 9px;
       left: 10px;
       width: 50px;
       height: 50px;
+    }
+
+    .popup-icon {
+      width: 50px;
+      height: 50px;
       border-radius: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .popup-icon-wrapper::after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: conic-gradient(
+        red,
+        orange,
+        yellow,
+        lime,
+        cyan,
+        blue,
+        violet,
+        pink,
+        white,
+        red
+      );
+      animation: rotate-border 3s linear infinite, glow 2s ease-in-out infinite alternate, pulse 2s ease-in-out infinite;
+      z-index: 1;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+    }
+
+    @keyframes rotate-border {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 6px rgba(255, 255, 255, 0.2); }
+      100% { box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
   </style>
 </head>
@@ -94,7 +142,9 @@
 
   <!-- Pop-up 1: Yataki -->
   <div id="popup1" class="popup">
-    <img src="https://imgur.com/HMD1NDS.png" class="popup-icon" alt="icon" />
+    <div class="popup-icon-wrapper">
+      <img src="https://imgur.com/HMD1NDS.png" class="popup-icon" alt="icon" />
+    </div>
     <h2>Video hướng dẫn nếu chưa hiểu👾</h2>
     <button class="btn-skip" onclick="showPopup2()">Bỏ qua</button>
     <button class="btn-guide" onclick="window.open('https://youtu.be/oGe7qu4WX1Q?si=Os-Zpfjc3lWAd52_', '_blank')">Xem hướng dẫn</button>
@@ -102,7 +152,9 @@
 
   <!-- Pop-up 2: Zalo hỗ trợ -->
   <div id="popup2" class="popup">
-    <img src="https://imgur.com/tzau7lc.png" class="popup-icon" alt="icon" />
+    <div class="popup-icon-wrapper">
+      <img src="https://imgur.com/tzau7lc.png" class="popup-icon" alt="icon" />
+    </div>
     <h2>vào nhóm báo lỗi để đc hỗ trợ</h2>
     <button class="btn-help" onclick="window.open('https://zalo.me/g/uvqkny008', '_blank')">Chưa hiểu</button>
     <button class="btn-skip" onclick="closePopup2()">Bỏ qua</button>
