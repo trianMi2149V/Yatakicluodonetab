@@ -4,13 +4,21 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="author" content="Yataki Roblox"> <!-- © Yataki Roblox - Bản quyền thuộc về kênh YouTube Yataki Roblox -->
-  <title>Yataki Tab</title>
+  <title>©Yataki Roblox</title>
   <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      color: white;
+    }
 
-    iframe { width: 100vw; height: 100vh; border: none; }
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
 
-    /* Popup chung */
     .popup {
       display: none;
       position: fixed;
@@ -18,40 +26,28 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: #1e1e1e;
-      padding: 30px;
+      padding: 50px 25px 25px 25px; /* chừa khoảng trên cho ảnh */
       border-radius: 12px;
       box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
       z-index: 1001;
-      width: 350px;
+      width: 320px;
       text-align: center;
       border: 1px solid #00ffff;
     }
 
     .popup h2 {
-      margin-bottom: 20px;
-      font-size: 22px;
+      margin-bottom: 15px;
+      font-size: 20px;
       color: #00ffff;
     }
 
-    .popup img {
-      position: absolute;
-      top: -40px;
-      left: -40px;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 4px solid #00ffff;
-      background: #fff;
-    }
-
     .popup button {
-      margin: 15px 10px 0;
-      padding: 12px 20px;
+      margin: 10px 5px 0;
+      padding: 10px 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 16px;
     }
 
     .btn-skip {
@@ -65,66 +61,77 @@
       color: #000;
     }
 
-    /* Lớp nền mờ */
-    #o1 {
+    #overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(4px);
       z-index: 1000;
       display: none;
     }
+
+    #support {
+      display: none;
+    }
+
+    .popup-icon {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
+
   <!-- Nền mờ -->
-  <div id="o1"></div>
+  <div id="overlay"></div>
 
   <!-- Pop-up 1: Yataki -->
-  <div id="p1" class="popup">
-    <img src="https://i.imgur.com/1lWbZqC.png" alt="Yataki">
-    <h2>Youtube Yataki</h2>
-    <button class="btn-skip" onclick="a1()">Bỏ qua</button>
+  <div id="popup1" class="popup">
+    <img src="https://imgur.com/HMD1NDS.png" class="popup-icon" alt="icon" />
+    <h2>Video hướng dẫn nếu chưa hiểu👾</h2>
+    <button class="btn-skip" onclick="showPopup2()">Bỏ qua</button>
     <button class="btn-guide" onclick="window.open('https://youtu.be/oGe7qu4WX1Q?si=Os-Zpfjc3lWAd52_', '_blank')">Xem hướng dẫn</button>
   </div>
 
   <!-- Pop-up 2: Zalo hỗ trợ -->
-  <div id="p2" class="popup">
-    <h2>Vào nhóm hỗ trợ</h2>
+  <div id="popup2" class="popup">
+    <img src="https://imgur.com/HMD1NDS.png" class="popup-icon" alt="icon" />
+    <h2>vào nhóm báo lỗi</h2>
     <button class="btn-help" onclick="window.open('https://zalo.me/g/uvqkny008', '_blank')">Chưa hiểu</button>
-    <button class="btn-skip" onclick="b1()">Bỏ qua</button>
+    <button class="btn-skip" onclick="closePopup2()">Bỏ qua</button>
   </div>
 
   <!-- Trang chính -->
-  <iframe src="https://www.easyfun.gg/" id="x1"></iframe>
+  <iframe src="https://www.easyfun.gg" id="mainFrame"></iframe>
 
   <script>
-    window.onload = function() {
-      document.getElementById('p1').style.display = 'block';
-      document.getElementById('o1').style.display = 'block';
-      document.getElementById('x1').style.display = 'none';
+    // Hiển thị pop-up đầu tiên khi tải
+    window.onload = function () {
+      document.getElementById('popup1').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('mainFrame').style.display = 'none';
     };
 
-    function a1() {
-      document.getElementById('p1').style.display = 'none';
-      document.getElementById('p2').style.display = 'block';
+    // Mở pop-up Zalo hỗ trợ
+    function showPopup2() {
+      document.getElementById('popup1').style.display = 'none';
+      document.getElementById('popup2').style.display = 'block';
     }
 
-    function b1() {
-      document.getElementById('p2').style.display = 'none';
-      document.getElementById('o1').style.display = 'none';
-      document.getElementById('x1').style.display = 'block';
+    // Đóng pop-up 2 và hiển thị iframe
+    function closePopup2() {
+      document.getElementById('popup2').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('mainFrame').style.display = 'block';
     }
-
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
-        e.preventDefault();
-      }
-    });
   </script>
+
 </body>
 </html>
