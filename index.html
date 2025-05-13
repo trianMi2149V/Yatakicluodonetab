@@ -94,45 +94,44 @@
       z-index: 2;
     }
 
-    .popup-icon-wrapper::after {
-      content: "";
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: conic-gradient(
-        red,
-        orange,
-        yellow,
-        lime,
-        cyan,
-        blue,
-        violet,
-        pink,
-        white,
-        red
-      );
-      animation: rotate-border 3s linear infinite, glow 2s ease-in-out infinite alternate, pulse 2s ease-in-out infinite;
-      z-index: 1;
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-    }
+  /* Viền vuông, bo tròn góc */
+.popup-icon-wrapper {
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px; /* Bo tròn góc */
+  overflow: hidden; /* Ẩn phần thừa ra ngoài viền */
+}
 
-    @keyframes rotate-border {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+.popup-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px; /* Bo tròn góc ảnh */
+  position: relative;
+  z-index: 2;
+}
 
-    @keyframes glow {
-      0% { box-shadow: 0 0 6px rgba(255, 255, 255, 0.2); }
-      100% { box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); }
-    }
+/* Hiệu ứng xoay viền */
+.popup-icon-wrapper::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 58px;
+  height: 58px;
+  border-radius: 8px; /* Bo tròn viền */
+  border: 2px solid #ff69b4; /* Màu hồng */
+  animation: rotate-border 2s linear infinite;
+  z-index: 1;
+}
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
+/* Hiệu ứng xoay viền quanh */
+@keyframes rotate-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
   </style>
 </head>
 <body>
