@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lấy Key và Sao Chép Key</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9; /* Nền cũ */
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white; /* Nền phần chứa nội dung */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        /* Tiêu đề chính trên ô key */
+        .key-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000; /* Màu chữ đen đậm */
+            margin-bottom: 10px;
+        }
+
+        /* Tiêu đề chờ đếm ngược */
+        .waiting-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000; /* Màu chữ đen cho tiêu đề chờ */
+            margin-bottom: 10px;
+        }
+
+        .key-box input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    display: none;
+    background-color: #f0f0f0; /* Xám nhạt */
+}
+
+        .copy-area button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #a5c7de; /* 🎨 xanh dương pha xám nhẹ */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+    transition: background-color 0.3s;
+}
+
+        .copy-area button:hover {
+            background-color: #64b5f6; /* Màu sáng hơn khi hover */
+        }
+
+        .copy-area button:enabled {
+            cursor: pointer;
+            background-color: #0099FF; /* Nút sao chép màu xanh dương đậm khi hoạt động */
+        }
+
+        .tree-area p {
+            font-size: 24px;
+        }
+
+        .timer {
+            font-size: 20px;
+            color: red;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #00796b; /* Tiêu đề màu xanh lá */
+        }
+
+        .sub-title {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            font-size: 18px;
+            font-weight: bold;
+            color: red; /* Màu đỏ cho thông báo sao chép thành công */
+        }
+
+        .next-step {
+            font-size: 16px;
+            color: #0097a7; /* Màu xanh dương cho bước tiếp theo */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tiêu đề "Vui lòng chờ 10 giây để lấy key" hiển thị trước khi đếm ngược -->
+        <div class="waiting-title" id="waitingTitle">Vui lòng chờ 10 giây để lấy key📥</div>
+
+        <!-- Tiêu đề chính "KEY EASYNFUN MOD" -->
+        <div class="key-title">KEY EASYNFUN MOD</div>
+
+        <div class="sub-title">1 Key = vô hạn giờ chơi cluod</div>
+
+        <div class="key-box">
+            <input type="text" id="keyInput" value="KEY_YATAKIROBLOX" readonly>
+        </div>
+
+        <div class="copy-area">
+            <button id="copyBtn" onclick="copyKey()" disabled>Sao Chép Key!</button>
+        </div>
+
+        <div class="timer" id="countdownTimer">10 giây còn lại</div>
+
+        <div class="tree-area">
+            <p id="treeText">✨️Powered by Yataki</p>
+        </div>
+
+        <div class="success-message" id="successMessage" style="display: none;">
+            Bạn đã sao chép key!
+        </div>
+        <div class="next-step" id="nextStep" style="display: none;">
+            Dán key vào Cluod để trải nghiệm EASYNFUN MOD
+        </div>
+    </div>
+
+    <script>
+        let countdown = 10;
+        const countdownTimer = document.getElementById("countdownTimer");
+        const copyBtn = document.getElementById("copyBtn");
+        const keyInput = document.getElementById("keyInput");
+        const successMessage = document.getElementById("successMessage");
+        const nextStep = document.getElementById("nextStep");
+        const waitingTitle = document.getElementById("waitingTitle");
+
+        // Hàm đếm ngược
+        function startCountdown() {
+            const countdownInterval = setInterval(function() {
+                countdown--;
+                countdownTimer.textContent = countdown + " giây còn lại";
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    keyInput.style.display = 'inline-block'; // Hiển thị key sau khi đếm ngược
+                    copyBtn.disabled = false; // Kích hoạt nút sao chép
+                    countdownTimer.textContent = "Sao chép Key để sử dụng cluod!";
+                    waitingTitle.style.display = 'none'; // Ẩn tiêu đề đếm ngược
+                }
+            }, 1000);
+        }
+
+        // Hàm sao chép key
+        function copyKey() {
+            keyInput.select();
+            keyInput.setSelectionRange(0, 99999); // Di chuyển con trỏ đến đầu và cuối
+            document.execCommand("copy");
+            successMessage.style.display = 'block'; // Hiển thị thông báo sao chép thành công
+            nextStep.style.display = 'block'; // Hiển thị bước tiếp theo
+            countdownTimer.textContent = "Bạn đã sao chép key! Dán key vào Cluod để trải nghiệm EASYNFUN MOD";
+            copyBtn.disabled = true; // Vô hiệu hóa nút sao chép sau khi sao chép
+        }
+
+        // Khởi động đếm ngược khi trang tải
+        window.onload = startCountdown;
+    </script>
+</body>
+</html>
